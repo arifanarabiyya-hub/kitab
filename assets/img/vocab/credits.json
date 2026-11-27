@@ -61,5 +61,82 @@
   "license": "Public domain",
   "source": "https://commons.wikimedia.org/wiki/File:Magnfying_glass_book_globe.jpg",
   "file": "search.jpg"
+ },
+ "reading-room": {
+  "title": "جامعة القرويين",
+  "creator": "إيان",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:%D8%AC%D8%A7%D9%85%D8%B9%D8%A9_%D8%A7%D9%84%D9%82%D8%B1%D9%88%D9%8A%D9%8A%D9%86.jpeg",
+  "file": "reading-room.jpg"
+ },
+ "loan-desk": {
+  "title": "Pine Island Public Library Circulation Desk",
+  "creator": "PIslander22",
+  "license": "CC0",
+  "source": "https://commons.wikimedia.org/wiki/File:Pine_Island_Public_Library_Circulation_Desk.jpg",
+  "file": "loan-desk.jpg"
+ },
+ "magazine": {
+  "title": "غلاف العدد 99 من مجلة المجلة",
+  "creator": "Irfan Shahid",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:%D8%BA%D9%84%D8%A7%D9%81_%D8%A7%D9%84%D8%B9%D8%AF%D8%AF_99_%D9%85%D9%86_%D9%85%D8%AC%D9%84%D8%A9_%D8%A7%D9%84%D9%85%D8%AC%D9%84%D8%A9.jpg",
+  "file": "magazine.jpg"
+ },
+ "big": {
+  "title": "Samovars 3 - Samovar museum, Kasimov",
+  "creator": "Лапоть",
+  "license": "CC0",
+  "source": "https://commons.wikimedia.org/wiki/File:Samovars_3_-_Samovar_museum,_Kasimov.jpg",
+  "file": "big.jpg"
+ },
+ "useful": {
+  "title": "Old books, desk lamp and computer",
+  "creator": "Londonjackbooks",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Old_books,_desk_lamp_and_computer.jpg",
+  "file": "useful.jpg"
+ },
+ "price": {
+  "title": "Ценник в динарах",
+  "creator": "Корниенко Виктор",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:%D0%A6%D0%B5%D0%BD%D0%BD%D0%B8%D0%BA_%D0%B2_%D0%B4%D0%B8%D0%BD%D0%B0%D1%80%D0%B0%D1%85.jpg",
+  "file": "price.jpg"
+ },
+ "expensive": {
+  "title": "Gold Ingots on white background",
+  "creator": "Szaaman",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Gold_Ingots_on_white_background.jpg",
+  "file": "expensive.jpg"
+ },
+ "author": {
+  "title": "رياض الصالحين",
+  "creator": "أبو آسر",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:%D8%B1%D9%8A%D8%A7%D8%B6_%D8%A7%D9%84%D8%B5%D8%A7%D9%84%D8%AD%D9%8A%D9%86.jpg",
+  "file": "author.jpg"
+ },
+ "title": {
+  "title": "Hadith Books",
+  "creator": "Bakkouz at Arabic Wikipedia",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Hadith_Books.jpg",
+  "file": "title.jpg"
+ },
+ "enjoyable": {
+  "title": "Turkish tea in fine glass",
+  "creator": "Cemallamec",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Turkish_tea_in_fine_glass.jpg",
+  "file": "enjoyable.jpg"
+ },
+ "shop": {
+  "title": "Lamp shop in the Grand Bazaar (14980854162)",
+  "creator": "Esin Üstün from Istanbul, Turkey",
+  "license": "CC BY 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Lamp_shop_in_the_Grand_Bazaar_(14980854162).jpg",
+  "file": "shop.jpg"
  }
 }

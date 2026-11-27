@@ -12,7 +12,8 @@
   };
   const bare = s => String(s || '').replace(/[ً-ْٰـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/\s+/g, ' ').trim();
   /* الصور المعتمدة من المراجع الشرعي فقط؛ غيرها يبقى رمزاً حتى يُعتمد بديله */
-  const OK = ['shelf', 'mushaf', 'dictionary', 'notebook', 'pen', 'computer', 'read', 'search', 'book'];
+  const OK = ['shelf', 'mushaf', 'dictionary', 'notebook', 'pen', 'computer', 'read', 'search', 'book',
+    'reading-room', 'loan-desk', 'magazine', 'big', 'price', 'expensive', 'author', 'title', 'useful', 'shop', 'enjoyable'];
   const idx = {}; Object.keys(M).forEach(k => { if (OK.includes(M[k])) idx[bare(k)] = M[k]; });
   window.vocabImg = ar => idx[bare(ar)] || null;
   /* صورة واقعية مربعة، وإن تعذّر تحميلها يحل محلها الرمز */
