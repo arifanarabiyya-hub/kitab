@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مسابقة الدرس</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&family=IBM+Plex+Sans:wght@400;700;800&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body class="pattern">
+<div style="padding:14px 16px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+  <a href="../index.html" style="color:#f3e7cc">← الموقع التعريفي</a>
+  <b>عرض تجريبي على جهاز واحد</b>
+  <span class="small muted">شاشة المعلم على اليمين، وهاتف طالب على اليسار، ومعك طلاب افتراضيون. في الفصل الحقيقي يدخل كل طالب من هاتفه بالرمز.</span>
+</div>
+<div class="demo">
+  <div><div class="demo-label">🖥️ شاشة المعلم (تُعرض على السبورة الذكية)</div><div class="screen" id="host"></div></div>
+  <div><div class="demo-label">📱 هاتف الطالب: ادخل بالرمز الظاهر على شاشة المعلم</div><div class="phone" id="phone"></div></div>
+</div>
+<script src="../audio/manifest.js"></script>
+<script src="engine.js"></script>
+<script src="quizzes.js"></script>
+<script src="client.js"></script>
+<script>
+  const hub = new QuizUI.LocalHub();
+  const hostT = new QuizUI.LocalTransport(hub, 'host');
+  const playerT = new QuizUI.LocalTransport(hub, 'player');
+  QuizUI.HostApp(document.getElementById('host'), hostT, { demo: true });
+  QuizUI.PlayerApp(document.getElementById('phone'), playerT);
+  // تعبئة الرمز تلقائياً في هاتف الطالب لتسهيل التجربة
+  hub.subs.push(() => { const i = document.querySelector('#phone #pin'); if (i && !i.value && hub.game) i.value = hub.game.pin; });
+</script>
+</body>
+</html>

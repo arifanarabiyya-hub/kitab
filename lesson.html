@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>نموذج الدرس</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=IBM+Plex+Sans:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body style="--lvl:var(--a1)">
+<header id="topbar"></header>
+
+<section class="block" style="padding-top:30px">
+  <div class="wrap lesson-layout">
+    <aside class="toc">
+      <b>تقدّمي في الدرس</b> <span class="tag-demo">نموذج تجريبي</span>
+      <div class="progress"><i id="pbar"></i></div>
+      <div class="small muted" id="ptext" style="margin-top:-8px;margin-bottom:8px"></div>
+      <nav id="toc"></nav>
+      <div class="toolbar" style="flex-direction:column;align-items:stretch">
+        <label class="switch"><input type="checkbox" id="optTr"> إظهار المعاني التركية في كل الدرس</label>
+        <p class="small muted" style="margin:0 0 4px">أو استعمل زر <b><i data-lucide="languages" class="lc"></i> Türkçe</b> في كل قسم وتمرين.</p>
+        <label class="switch"><input type="checkbox" id="optAns"> إظهار كل الإجابات (للمعلم)</label>
+        <button class="btn ghost sm" id="resetBtn">إعادة تعيين التقدم</button>
+      </div>
+      <p class="small muted" style="margin:10px 0 0"><i data-lucide="volume-2" class="lc"></i> النطق في هذا النموذج بصوت رجل عربي مولَّد آلياً للتوضيح، وسيُستبدل بتسجيلات بشرية. والآيات تُضاف بتلاوة قارئ مجوِّد.</p>
+    </aside>
+
+    <article class="book-page" id="page">
+      <div class="book-header">
+        <div><span class="chip lvl">A1</span> <span class="unit-tag">الوحدة السابعة: في المكتبة</span></div>
+        <span class="muted small">الدرس الأول من ثلاثة</span>
+      </div>
+      <h1 class="book-title" id="ltitle"></h1>
+      <div class="lat muted" id="ltr"></div>
+      <div class="objectives" style="margin-top:18px"><b>أهداف الدرس</b><ol id="objectives"></ol></div>
+
+      <!-- 1 -->
+      <section class="book-sec" id="s1">
+        <div class="sec-title"><div class="badge"><span>1</span></div><h2>المفردات والتراكيب</h2></div>
+        <p class="small muted" id="vocabHint">اضغط على الكلمة لتسمع نطقها وترى معناها.</p>
+        <div id="vocab"></div>
+        <h4 style="font-family:var(--f-ui);font-size:.95rem;color:var(--lvl)" id="phrasesHead">تراكيب مفيدة في المحادثة</h4>
+        <div class="phrases" id="phrases"></div>
+      </section>
+
+      <!-- 2 و3 متجاوران: الحوار وتمارين فهمه -->
+      <div class="sec-row">
+      <section class="book-sec" id="s2">
+        <div class="sec-title"><div class="badge"><span>2</span></div><h2>الحوار</h2><div class="skills"><span class="sk sk-l">استماع</span><span class="sk sk-r">قراءة</span></div></div>
+        <div class="scene"><i data-lucide="clapperboard" class="lc"></i> <span id="scene"></span></div>
+        <div class="toolbar" style="margin:0 0 14px">
+          <button class="btn sm" id="playAll"><i data-lucide="play" class="lc"></i> استمع إلى الحوار كاملاً</button>
+          <button class="btn ghost sm" id="stopAll"><i data-lucide="square" class="lc"></i> إيقاف</button>
+          <label class="switch" style="margin-inline-start:8px"><input type="checkbox" id="clozeMode"> أخفِ بعض الكلمات (تذكّر)</label>
+        </div>
+        <div class="dialogue" id="dialogue"></div>
+        <p class="small muted" style="margin-top:10px" id="clozeHint">في وضع «تذكّر» اضغط على الفراغ لكشف الكلمة.</p>
+      </section>
+
+      <!-- 3 -->
+      <section class="book-sec" id="s3">
+        <div class="sec-title"><div class="badge"><span>3</span></div><h2>فهم الحوار</h2></div>
+        <div id="comp"></div>
+      </section>
+      </div>
+
+      <!-- 4 -->
+      <section class="book-sec" id="s4">
+        <div class="sec-title"><div class="badge"><span>4</span></div><h2>القاعدة: <span id="gtitle"></span></h2></div>
+        <div class="grammar-box" id="grammar"></div>
+      </section>
+
+      <!-- 5 -->
+      <section class="book-sec" id="s5">
+        <div class="sec-title"><div class="badge"><span>5</span></div><h2>تدريبات القاعدة</h2></div>
+        <div id="gex"></div>
+      </section>
+
+      <!-- 6 -->
+      <section class="book-sec" id="s6">
+        <div class="sec-title"><div class="badge"><span>6</span></div><h2>الأنشطة المهارية</h2><div class="skills"><span class="sk sk-l">استماع</span><span class="sk sk-s">محادثة</span><span class="sk sk-r">قراءة</span><span class="sk sk-w">كتابة</span></div></div>
+        <div id="skills"></div>
+      </section>
+
+      <section class="book-sec" id="s7">
+        <div style="background:#0d2b28;color:#fff;border-radius:18px;padding:22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+          <div style="width:56px;height:56px;border-radius:14px;background:rgba(216,178,92,.18);color:#d8b25c;display:grid;place-items:center"><i data-lucide="trophy" style="width:30px;height:30px"></i></div>
+          <div style="flex:1;min-width:220px"><h2 style="color:#fff;margin:0 0 4px;font-size:1.4rem">مسابقة نهاية الدرس</h2>
+            <p style="margin:0;opacity:.85">يبدأها المعلم على الشاشة، ويدخل الطلاب بالرمز من هواتفهم: 12 سؤالاً على المفردات والحوار والاستماع والقاعدة والشواهد، مع شرح بعد كل سؤال وتقرير للمعلم.</p></div>
+          <a class="btn gold" href="quiz/demo.html">جرّب المسابقة ←</a>
+        </div>
+      </section>
+
+      <div style="text-align:center;margin-top:36px" class="no-print">
+        <a class="btn ghost" href="unit.html">→ العودة إلى الوحدة</a>
+        <a class="btn" href="unit.html#review">مراجعة نهاية الوحدة ←</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<footer id="footer"></footer>
+<script src="data/sample-unit.js"></script>
+<script src="data/sample-unit-tr.js"></script>
+<script src="data/vocab-img.js"></script>
+<script src="audio/manifest.js"></script>
+<script src="assets/vendor/lucide.min.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/teacher.js"></script>
+<script src="assets/js/lesson.js"></script>
+</body>
+</html>

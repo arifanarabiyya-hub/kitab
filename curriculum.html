@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المستويات والوحدات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=IBM+Plex+Sans:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header id="topbar"></header>
+<section class="page-hero pattern">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">الرئيسية</a> / المستويات والوحدات</div>
+    <h1>المستويات الأربعة والوحدات الأربعون</h1>
+    <p>التوزيع التفصيلي المقترح لـ 40 وحدة و120 درساً. اضغط على أي وحدة لعرض بطاقتها الكاملة: الفكرة، والموقف التواصلي، والدروس الثلاثة، والمفردات والتراكيب، والمهارة المركزة، والهدف المتوقع.</p>
+  </div>
+</section>
+
+<section class="block" style="padding-top:36px">
+  <div class="wrap">
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px" class="no-print">
+      <div class="lvl-tabs" id="tabs" style="margin:0"></div>
+      <span style="margin-inline-start:auto"></span>
+      <button class="btn ghost sm" id="viewToggle">عرض الجدول الكامل (40 وحدة)</button>
+    </div>
+    <div id="levelView"></div>
+    <div id="tableView" style="display:none">
+      <p class="muted small no-print">جدول قابل للطباعة يضم الوحدات الأربعين بحقولها الثمانية. (Ctrl+P للطباعة أو الحفظ PDF)</p>
+      <div class="table-wrap"><table class="t" id="fullTable"></table></div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="kicker">مراجعة المحتوى (المرحلة الثانية)</div>
+    <h2>تغطية المحاور الستة عشر</h2>
+    <p class="lead">كل محور من محاور الموضوعات ممثَّل في وحدة أو أكثر، موزعاً على المستويات بما يناسبها.</p>
+    <div class="table-wrap" style="margin-top:16px"><table class="t" id="axesTable"></table></div>
+
+    <h3 style="margin-top:36px">أسئلة المراجعة وإجاباتها</h3>
+    <div class="grid g2">
+      <div class="card"><h4>هل يخدم كل موضوع احتياجات طالب العلم؟</h4><p class="small muted">نعم؛ 26 وحدة من 40 تدور مباشرة في بيئته (المسجد، الحلقة، السكن، المكتبة، العلماء، الرحلة العلمية، المناظرة)، والبقية حاجات يومية يمارسها في سياقه (السوق، الصحة، السفر) بشخصيات وحوارات من عالمه.</p></div>
+      <div class="card"><h4>هل يوجد توازن بين اليومي والعلمي؟</h4><p class="small muted">في A1 تقريباً 50% يومي و50% بيئة علمية، ويرتفع نصيب البيئة العلمية والفكرية تدريجياً حتى يغلب في B2، مع بقاء المواقف الاجتماعية حاضرة.</p></div>
+      <div class="card"><h4>هل توجد موضوعات مكررة؟</h4><p class="small muted">المكان قد يتكرر لكن الوظيفة تتغير: المكتبة في A1 = استعارة وشراء؛ في A2 = الحديث عن كتاب مقروء؛ في B1 = عرض كتاب وتلخيصه؛ في B2 = المخطوطات والتراث. وكذلك المسجد: مرافق وأوقات ← وصف وتطوع ← حوار دعوي.</p></div>
+      <div class="card"><h4>هل التدرج اللغوي مناسب؟</h4><p class="small muted">القواعد مرتبة من الجملة الاسمية والإشارة والصفة (A1) إلى الماضي والمثنى والجموع وكان (A2) إلى إنّ والمجهول والمشتقات والأوزان (B1) إلى الأساليب والحجاج (B2)، ولا يحمل الدرس أكثر من قاعدة واحدة رئيسة.</p></div>
+      <div class="card"><h4>هل الموضوعات مناسبة لمستواها؟</h4><p class="small muted">المهام المطلوبة تتصاعد: يقدّم نفسه ← يروي يومه ← يعرض كتاباً ويناقش ← يناظر ويكتب مقالة. والحوار الديني والمناظرة مؤجلان إلى B2 حيث يتوافر الرصيد اللغوي.</p></div>
+      <div class="card"><h4>هل الوحدات ملتزمة بالضوابط؟</h4><p class="small muted">جميع المواقف المقترحة بين شخصيات من الذكور (طلاب، شيخ، أمين مكتبة، بائع، طبيب)، ولا توجد وحدة عن الحياة الجامعية المختلطة. وكل وحدة ستمر بقائمة المراجعة الإلزامية قبل اعتمادها.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="modal-box" id="modalBox"></div></div>
+<footer id="footer"></footer>
+<script src="data/curriculum.js"></script>
+<script src="assets/js/common.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+let current = params.get('l') || 'a1';
+const allUnits = LEVELS.flatMap(L => L.units.map(u => Object.assign({ L }, u)));
+if (params.get('u')) { const f = allUnits.find(u => u.n == params.get('u')); if (f) current = f.L.id; }
+
+function skillBar(s) {
+  return '<div class="skillbar"><span class="sk-l" style="width:' + s.listening + '%">استماع ' + s.listening + '%</span><span class="sk-s" style="width:' + s.speaking + '%">محادثة ' + s.speaking + '%</span><span class="sk-r" style="width:' + s.reading + '%">قراءة ' + s.reading + '%</span><span class="sk-w" style="width:' + s.writing + '%">كتابة ' + s.writing + '%</span></div>';
+}
+function renderTabs() {
+  document.getElementById('tabs').innerHTML = LEVELS.map(L => '<button class="lvl-tab' + (L.id === current ? ' active' : '') + '" style="--lvl:' + L.color + '" data-l="' + L.id + '"><b>' + L.code + '</b>' + L.name + '</button>').join('');
+}
+function renderLevel() {
+  const L = LEVELS.find(x => x.id === current);
+  document.getElementById('levelView').innerHTML =
+    '<div class="card lvl-panel" style="--lvl:' + L.color + '"><div class="lvl-head"><div>' +
+    '<span class="chip lvl">' + L.code + '</span> <span class="muted">«' + L.motto + '»</span><h2 style="margin-top:6px;color:' + L.color + '">المستوى ' + L.name + '</h2>' +
+    '<p><b>الهدف التعليمي:</b> ' + L.goal + '</p><h4>الخصائص اللغوية</h4><ul class="check">' + L.features.map(f => '<li>' + f + '</li>').join('') + '</ul></div>' +
+    '<div><div class="lvl-facts"><div><small>المفردات (تراكمي)</small><b>' + L.vocab + '</b></div><div><small>طول النصوص</small><b>' + L.textLen + '</b></div>' +
+    '<div><small>ساعات مقترحة</small><b>' + L.hours + '</b></div><div><small>الوحدات / الدروس</small><b>10 / 30</b></div></div>' +
+    '<h4 style="margin-top:16px">المهارات المستهدفة (نسبة الاهتمام)</h4>' + skillBar(L.skills) +
+    '<p class="small muted" style="margin-top:8px"><b>الاستقلال في التعبير:</b> ' + L.independence + '</p></div></div>' +
+    '<h3>الوحدات العشر <span class="small muted">— اضغط على الوحدة لعرض تفاصيلها</span></h3><div class="unit-grid">' +
+    L.units.map(u => '<button class="unit-card" data-u="' + u.n + '">' + (u.sample ? '<span class="star">وحدة نموذجية</span>' : '') +
+      '<span class="num">الوحدة ' + u.n + '</span><h4>' + u.title + '</h4><ol>' + u.lessons.map(l => '<li>' + l.t + '</li>').join('') + '</ol></button>').join('') +
+    '</div></div>';
+}
+function unitDetails(u) {
+  return '<dl class="dl">' +
+    '<dt>الفكرة العامة</dt><dd>' + u.idea + '</dd>' +
+    '<dt>الموقف التواصلي</dt><dd>' + u.situation + '</dd>' +
+    '<dt>الدروس الثلاثة</dt><dd><ul class="lesson-list">' + u.lessons.map((l, i) => '<li><span class="ln">' + (i + 1) + '</span><div><b>' + l.t + '</b><small>القاعدة: ' + l.g + '</small></div></li>').join('') + '</ul></dd>' +
+    '<dt>المفردات</dt><dd class="book" style="font-size:1.1rem">' + u.vocab + '</dd>' +
+    '<dt>التراكيب</dt><dd class="book" style="font-size:1.1rem">' + u.structures + '</dd>' +
+    (u.shahid ? '<dt>شاهد الوحدة</dt><dd><div style="font-family:Amiri,var(--f-book);font-size:1.35rem;line-height:1.9">' + u.shahid.t + '</div><div class="small muted">' + u.shahid.src + '</div><div class="small">🔎 ' + u.shahid.g + ' · 🌱 ' + u.shahid.f + '</div></dd>'
+      : '<dt>الشواهد</dt><dd class="small muted">يُختار لكل درس شاهد من الآيات والأحاديث وآثار الصحابة والتابعين يطبّق قاعدته، في مرحلة التأليف.</dd>') +
+    '<dt>المهارة المركزة</dt><dd>' + u.skill + ' <span class="small muted">(مع حضور المهارات الأربع في كل درس)</span></dd>' +
+    '<dt>الهدف المتوقع</dt><dd><b>يستطيع الطالب أن:</b> ' + u.goal + '</dd></dl>';
+}
+function openUnit(n) {
+  const u = allUnits.find(x => x.n == n), L = u.L;
+  const box = document.getElementById('modalBox');
+  box.style.setProperty('--lvl', L.color);
+  box.innerHTML = '<header><div><span class="chip lvl">' + L.code + ' · الوحدة ' + u.n + '</span><h3>' + u.title + '</h3></div><button class="modal-close" aria-label="إغلاق">✕</button></header>' +
+    '<div class="modal-body">' + unitDetails(u) +
+    '<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">' +
+    (u.n > 1 ? '<button class="btn ghost sm" data-go="' + (u.n - 1) + '">→ الوحدة السابقة</button>' : '') +
+    (u.n < 40 ? '<button class="btn ghost sm" data-go="' + (u.n + 1) + '">الوحدة التالية ←</button>' : '') +
+    (u.sample ? '<a class="btn sm" href="unit.html">افتح الوحدة النموذجية</a>' : '') + '</div></div>';
+  document.getElementById('modal').classList.add('open');
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-l]'); if (t) { current = t.dataset.l; renderTabs(); renderLevel(); }
+  const c = e.target.closest('[data-u]'); if (c) openUnit(c.dataset.u);
+  const g = e.target.closest('[data-go]'); if (g) { openUnit(g.dataset.go); }
+  if (e.target.closest('.modal-close') || e.target.id === 'modal') document.getElementById('modal').classList.remove('open');
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('modal').classList.remove('open'); });
+
+// الجدول الكامل
+document.getElementById('fullTable').innerHTML = '<thead><tr><th>#</th><th>الوحدة</th><th>الفكرة والموقف التواصلي</th><th>الدروس الثلاثة (والقاعدة)</th><th>المفردات والتراكيب</th><th>المهارة المركزة</th><th>الهدف المتوقع</th></tr></thead><tbody>' +
+  LEVELS.map(L => '<tr class="lvl-row" style="--lvl:' + L.color + '"><td colspan="7">' + L.code + ' — ' + L.name + ' «' + L.motto + '»</td></tr>' +
+    L.units.map(u => '<tr style="--lvl:' + L.color + '"><td class="num">' + u.n + '</td><td><b>' + u.title + '</b></td><td>' + u.idea + '<br><span class="muted small">' + u.situation + '</span></td>' +
+      '<td><ol>' + u.lessons.map(l => '<li><b>' + l.t + '</b><br><span class="small muted">' + l.g + '</span></li>').join('') + '</ol></td>' +
+      '<td class="small">' + u.vocab + '<br><span class="muted">' + u.structures + '</span></td><td class="small">' + u.skill + '</td><td class="small">' + u.goal + '</td></tr>').join('')).join('') + '</tbody>';
+
+document.getElementById('viewToggle').onclick = function () {
+  const tv = document.getElementById('tableView'), lv = document.getElementById('levelView'), tabs = document.getElementById('tabs');
+  const showTable = tv.style.display === 'none';
+  tv.style.display = showTable ? '' : 'none'; lv.style.display = showTable ? 'none' : ''; tabs.style.visibility = showTable ? 'hidden' : '';
+  this.textContent = showTable ? 'العودة إلى عرض المستويات' : 'عرض الجدول الكامل (40 وحدة)';
+};
+
+// تغطية المحاور
+document.getElementById('axesTable').innerHTML = '<thead><tr><th>المحور</th>' + LEVELS.map(L => '<th style="background:' + L.color + '">' + L.code + '</th>').join('') + '</tr></thead><tbody>' +
+  AXES.map(a => '<tr><td><b>' + a.k + '</b></td>' + LEVELS.map(L => { const us = L.units.filter(u => a.u.includes(u.n));
+    return '<td class="small">' + us.map(u => '<a href="#" data-u="' + u.n + '" style="color:' + L.color + '">' + u.n + '. ' + u.title + '</a>').join('<br>') + '</td>'; }).join('') + '</tr>').join('') + '</tbody>';
+document.getElementById('axesTable').addEventListener('click', e => { if (e.target.closest('a')) e.preventDefault(); });
+
+renderTabs(); renderLevel();
+if (params.get('u')) openUnit(params.get('u'));
+</script>
+</body>
+</html>

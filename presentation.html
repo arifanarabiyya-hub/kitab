@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>العرض التقديمي للإدارة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=IBM+Plex+Sans:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  html, body { height: 100%; overflow: hidden; background: #0b1c1a; }
+  .viewport { position: fixed; inset: 0; direction: ltr; overflow: hidden; }
+  .stage { width: 1280px; height: 720px; position: absolute; left: 50%; top: 50%; transform-origin: center; direction: rtl; }
+  .slide { position: absolute; inset: 0; background: var(--paper); padding: 64px 80px; display: none; flex-direction: column; overflow: hidden; }
+  .slide.on { display: flex; }
+  .slide h2 { font-size: 2.5rem; margin-bottom: 6px; color: var(--brand); }
+  .slide .k { color: var(--gold); font-weight: 700; font-size: 1rem; letter-spacing: .5px; }
+  .slide .sub { font-size: 1.3rem; color: var(--ink-2); margin-bottom: 26px; }
+  .slide.dark { background-color: var(--brand); color: #fff; }
+  .slide.dark h1, .slide.dark h2 { color: #fff; }
+  .slide .corner { position: absolute; bottom: 22px; inset-inline-start: 80px; font-size: .85rem; color: var(--ink-3); }
+  .slide.dark .corner { color: rgba(255,255,255,.5); }
+  .slide .pno { position: absolute; bottom: 22px; inset-inline-end: 80px; font-family: var(--f-lat); color: var(--ink-3); font-size: .9rem; direction: ltr; }
+  .big { font-family: var(--f-display); font-size: 4.6rem; line-height: 1.2; }
+  .cols { display: grid; gap: 22px; flex: 1; align-content: start; }
+  .c2 { grid-template-columns: 1fr 1fr; } .c3 { grid-template-columns: repeat(3, 1fr); } .c4 { grid-template-columns: repeat(4, 1fr); }
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; font-size: 1.15rem; }
+  .box h3 { font-size: 1.4rem; margin-bottom: 6px; }
+  .box .e { font-size: 2.2rem; display: block; margin-bottom: 6px; }
+  .lvlbox { border-radius: 16px; color: #fff; padding: 22px; }
+  .lvlbox b.code { font-family: var(--f-lat); font-size: 2.6rem; display: block; line-height: 1; }
+  .nav-ui { position: fixed; bottom: 14px; inset-inline-start: 50%; transform: translateX(50%); display: flex; gap: 8px; z-index: 10; opacity: .25; transition: .2s; }
+  .nav-ui:hover { opacity: 1; }
+  .nav-ui button { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.2); border-radius: 99px; padding: 6px 14px; cursor: pointer; font: inherit; font-size: .85rem; }
+  .bar-top { position: fixed; top: 0; inset-inline-start: 0; height: 4px; background: var(--gold); z-index: 10; transition: .3s; }
+  .mini-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
+  .mini-grid div { border-radius: 6px; color: #fff; font-family: var(--f-lat); font-size: .85rem; text-align: center; padding: 6px 0; }
+  .flowrow { display: flex; gap: 10px; align-items: stretch; }
+  .flowrow .box { flex: 1; text-align: center; padding: 18px 10px; font-size: 1.05rem; }
+  .flowrow .box b { display: block; font-family: var(--f-lat); color: var(--gold); font-size: 1.5rem; }
+  .bars div { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .bars .skillbar { flex: 1; height: 44px; font-size: .95rem; }
+  .rl li { margin-bottom: 10px; font-size: 1.2rem; }
+  .slide.uslide { padding: 40px 56px 48px; }
+  .slide.uslide h2 { font-size: 2.1rem; margin-bottom: 0; }
+  .ugrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 12px 0 0; flex: 1; min-height: 0; }
+  .ucard { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; overflow: hidden; box-shadow: 0 1px 4px rgba(28,38,38,.06); position: relative; min-width: 0; }
+  .ucard.sample { background: #fbf5e6; border-color: var(--gold); }
+  .ubadge { display: inline-block; color: #fff; font-size: .78rem; font-weight: 700; border-radius: 99px; padding: 1px 10px; }
+  .usample { position: absolute; top: 12px; left: 12px; font-size: .72rem; color: var(--gold); font-weight: 700; }
+  .ucard b { display: block; font-size: 1.2rem; line-height: 1.35; margin: 8px 0 6px; }
+  .ucard ol { margin: 0; padding-inline-start: 20px; font-size: .95rem; color: var(--ink-2); line-height: 1.55; }
+  .ucard ol li + li { margin-top: 2px; }
+  body.stack .ugrid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; }
+  body.stack .ucard b { font-size: 1.1rem; } body.stack .ucard ol { font-size: .9rem; }
+  @media (max-width: 400px) { body.stack .ugrid { grid-template-columns: 1fr; } }
+  .sh-m { color: #1f5f9e; border-bottom: 2px solid #1f5f9e; }
+  .sh-s { color: var(--b2); border-bottom: 2px solid var(--b2); font-weight: 700; }
+  /* وضع القراءة على الهاتف العمودي: الشرائح بطاقات متتالية تُمرَّر عمودياً بحجمها الطبيعي */
+  body.stack, html.stack { overflow: auto; height: auto; }
+  body.stack .viewport { position: static; overflow: visible; direction: rtl; padding: 10px 10px 30px; }
+  body.stack .stage { position: static; width: auto; height: auto; transform: none !important; }
+  body.stack .slide { display: flex; position: relative; inset: auto; padding: 26px 18px 40px; margin-bottom: 12px; border-radius: 14px; overflow: visible; }
+  body.stack .slide h2 { font-size: 1.45rem; }
+  body.stack .slide .sub { font-size: 1.02rem; margin-bottom: 14px; }
+  body.stack .big { font-size: 2.2rem; }
+  body.stack .cols { gap: 10px; }
+  body.stack .c2, body.stack .c3 { grid-template-columns: 1fr; }
+  body.stack .c4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.stack .box { font-size: 1rem; padding: 14px; }
+  body.stack .box h3 { font-size: 1.1rem; }
+  body.stack .box .e { font-size: 1.6rem; }
+  body.stack .lvlbox { padding: 14px; }
+  body.stack .lvlbox b.code { font-size: 1.8rem; }
+  body.stack .rl li { font-size: 1rem; }
+  body.stack .flowrow { flex-wrap: wrap; }
+  body.stack .flowrow .box { flex: 1 1 40%; }
+  body.stack .slide table.t { min-width: 640px; font-size: .9rem !important; }
+  body.stack .slide .table-wrap::after { content: "⇠ اسحب الجدول أفقياً"; display: block; font-size: .75rem; color: var(--ink-3); padding: 4px 8px; }
+  body.stack .mini-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  body.stack .mini-grid div div { white-space: normal !important; overflow: visible !important; line-height: 1.35; padding: 2px 3px 3px !important; }
+  body.stack #sGrid > div { flex-direction: column; align-items: stretch !important; gap: 4px !important; }
+  body.stack .bars div { flex-wrap: wrap; }
+  body.stack .bars .skillbar { flex: 1 1 100%; height: 34px; font-size: .7rem; }
+  body.stack .bars span[style*="width:260px"] { width: auto !important; }
+  body.stack .slide .corner { position: static; margin-top: 16px; }
+  body.stack .slide .pno { bottom: 12px; inset-inline-end: 18px; }
+  body.stack .nav-ui, body.stack .bar-top { display: none; }
+  body.stack .slide > div[style*="display:flex"] { flex-wrap: wrap; align-items: center; gap: 8px !important; margin-top: 22px !important; }
+  body.stack .stack-head { display: flex; }
+  .stack-head { display: none; justify-content: space-between; align-items: center; gap: 10px; color: #fff; padding: 6px 4px 12px; font-size: .9rem; }
+  .stack-head a { color: var(--gold-soft); }
+  @media (max-width: 400px) { body.stack .c4 { grid-template-columns: 1fr; } }
+  @media print {
+    html, body { overflow: visible; height: auto; background: #fff; }
+    .viewport { position: static; display: block; }
+    .stage { transform: none !important; width: 100%; height: auto; }
+    .slide { display: flex !important; position: relative; width: 1280px; height: 720px; page-break-after: always; break-after: page; }
+    .nav-ui, .bar-top { display: none; }
+    @page { size: 1280px 720px; margin: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="bar-top" id="bar"></div>
+<div class="viewport"><div class="stack-head"><span>📱 وضع القراءة على الهاتف — مرّر للأسفل. لعرض الشرائح أدِر الهاتف أفقياً.</span><a href="index.html">الموقع</a></div><div class="stage" id="stage">
+
+<!-- 1 -->
+<section class="slide dark pattern" style="justify-content:center">
+  <div class="k" style="color:var(--gold-soft)">مشروع تأليف سلسلة تعليمية لمجمع السيرة النبوية وكلية عارفان — عرض للإدارة</div>
+  <h1 class="big" style="margin:14px 0">العربية بين يدي طالب العلم</h1>
+  <p style="font-size:1.5rem;opacity:.9;max-width:900px">سلسلة تواصلية لتعليم العربية للناطقين بغيرها، موجّهة إلى الطلاب الأتراك من طلاب العلوم الشرعية</p>
+  <div style="display:flex;gap:18px;margin-top:40px;font-size:1.2rem">
+    <span class="chip" style="background:var(--a1);color:#fff;font-size:1rem">A1</span><span class="chip" style="background:var(--a2);color:#fff;font-size:1rem">A2</span><span class="chip" style="background:var(--b1);color:#fff;font-size:1rem">B1</span><span class="chip" style="background:var(--b2);color:#fff;font-size:1rem">B2</span>
+    <span style="opacity:.8">· 40 وحدة · 120 درساً</span></div>
+  <div class="corner">الاسم مقترح مبدئي قابل للاعتماد أو التعديل</div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="k">المشكلة والحاجة</div><h2>طالب يفهم النص… ولا يتكلم</h2>
+  <p class="sub">فجوة واضحة بين ما يحتاج إليه طالب العلم وما تقدمه الكتب المتاحة.</p>
+  <div class="cols c3">
+    <div class="box"><span class="e">🗣️</span><h3>ضعف التواصل</h3>كثير من الطلاب يقرؤون المتون ويعجزون عن محادثة بسيطة أو سؤال شيخ.</div>
+    <div class="box"><span class="e">📚</span><h3>كتب لا تشبهه</h3>الكتب الشائعة تدور حول الجامعة والحياة المختلطة والسياحة، بعيداً عن بيئته.</div>
+    <div class="box"><span class="e">🇹🇷</span><h3>متعلم مجهول</h3>لا تراعي صعوبات المتعلم التركي في الأصوات والتذكير والتأنيث وترتيب الجملة.</div>
+  </div>
+  <div class="box" style="margin-top:22px;background:var(--gold-soft);border-color:var(--gold);font-size:1.3rem;text-align:center">الحاجة: منهج لغوي وظيفي محافظ، مصمم لطالب العلم التركي، يبدأ من المحادثة ويتحول إلى تجربة رقمية.</div>
+  <div class="pno"></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="k">الرؤية والرسالة</div><h2>لغة يعيش بها، لا مادة يحفظها</h2>
+  <div class="cols c2" style="margin-top:20px">
+    <div class="box"><span class="e">🧭</span><h3>الرؤية</h3>أن تكون السلسلة المرجع الأول لطالب العلم الناطق بغير العربية، يتعلم بها العربية لغةً حيّة يعيش بها ويحاور، في إطار محافظ يحترم هويته.</div>
+    <div class="box"><span class="e">📜</span><h3>الرسالة</h3>منهج وظيفي متدرج من A1 إلى B2، يبني المهارات الأربع بأولوية للمحادثة، عبر مواقف من حياة طالب العلم، في كتاب يتحول إلى تجربة تفاعلية.</div>
+  </div>
+  <div class="pno"></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="k">الفئة المستهدفة</div><h2>لمن نؤلف؟</h2>
+  <div class="cols c2" style="margin-top:20px">
+    <div class="box" style="border-inline-start:6px solid var(--brand)"><h3>الفئة الأساسية</h3><ul class="rl"><li>الطلاب الأتراك من طلاب العلوم الشرعية</li><li>في المعاهد والحلقات والمدارس الشرعية</li><li>من سن 15 فما فوق، من المبتدئ إلى فوق المتوسط</li><li>لا يرتادون الجامعة بالضرورة يومياً</li></ul></div>
+    <div class="box"><h3>ماذا يحتاجون؟</h3><ul class="rl"><li>التعارف وقضاء الحاجات اليومية</li><li>التواصل في المسجد والسكن والمكتبة</li><li>المشاركة في الدروس والمجالس والندوات</li><li>الحوار الديني والمناظرة بأدب وحجة</li></ul></div>
+  </div>
+  <div class="pno"></div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="k">فلسفة السلسلة</div><h2>اللغة هي الهدف… والبيئة العلمية هي الإطار</h2>
+  <div class="cols c2" style="margin-top:14px">
+    <div class="box" style="background:#f3efe6"><h3>✗ لا نريد</h3><p>درساً بعنوان «أحكام البيع والربا».</p><p>ولا منهجاً يقتصر على الموضوعات العامة المكررة: الأسرة، المدرسة، الجامعة، السياحة.</p></div>
+    <div class="box" style="border-inline-start:6px solid var(--ok)"><h3>✓ نريد</h3><p>حواراً بين طالب وبائع لشراء كتاب.</p><p>طالبين يتحدثان عن كتاب قرآه، أو نصاً عن حضور درس علمي.</p></div>
+  </div>
+  <div class="flowrow" style="margin-top:22px">
+    <div class="box"><b>①</b>الحاجات اليومية<br><span class="small muted">السوق · السكن · المواصلات</span></div>
+    <div class="box"><b>②</b>البيئة العلمية<br><span class="small muted">المسجد · الحلقة · المكتبة · الندوة</span></div>
+    <div class="box"><b>③</b>البيان والحوار<br><span class="small muted">الرأي · المناظرة · الحوار الديني · الخطابة</span></div>
+  </div>
+  <div class="pno"></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="k">المستويات الأربعة</div><h2>تدرج من «خطوات أولى» إلى «منبر البيان»</h2>
+  <div class="cols c4" id="sLevels" style="margin-top:18px"></div>
+  <div class="pno"></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="k">الهيكل العام</div><h2>4 مستويات × 10 وحدات × 3 دروس = 120 درساً</h2>
+  <p class="sub">كل وحدة: ثلاثة دروس + مراجعة مفردات وتراكيب في نهايتها.</p>
+  <div id="sGrid" style="display:grid;gap:10px"></div>
+  <div class="pno"></div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="k">توزيع الموضوعات</div><h2>المكان نفسه… والوظيفة اللغوية تتصاعد</h2>
+  <p class="sub">تعود بيئة طالب العلم في كل مستوى، لكن بمهمة لغوية أعلى. لا تكرار، بل تدرج حلزوني.</p>
+  <div class="table-wrap"><table class="t" style="font-size:1.05rem">
+    <thead><tr><th>البيئة</th><th style="background:var(--a1)">A1</th><th style="background:var(--a2)">A2</th><th style="background:var(--b1)">B1</th><th style="background:var(--b2)">B2</th></tr></thead>
+    <tbody>
+      <tr><td><b>📚 المكتبة</b></td><td>يستعير ويشتري كتاباً</td><td>يتحدث عن كتاب قرأه</td><td>يعرض كتاباً ويلخصه</td><td>يناقش المخطوطات والتراث</td></tr>
+      <tr><td><b>🕌 المسجد</b></td><td>يسأل عن المرافق والأوقات</td><td>يصف المسجد ويتطوع فيه</td><td>يدوّن فوائد درس فيه</td><td>يحاور زائراً عن الإسلام</td></tr>
+      <tr><td><b>🎓 مجلس العلم</b></td><td>يستأذن ويسأل الشيخ</td><td>يطرح سؤالاً علمياً بأدب</td><td>يناقش ويعرض أمام زملائه</td><td>يداخل في ندوة ويناظر</td></tr>
+      <tr><td><b>🏠 السكن</b></td><td>يصف غرفته وزميله</td><td>يتقاسم الأعمال ويحل خلافاً</td><td>يناقش قضية مع زملائه</td><td>يحلل تحديات الغربة</td></tr>
+      <tr><td><b>✍️ الكتابة</b></td><td>يملأ استمارة وبطاقة</td><td>يكتب يوميات ورسالة</td><td>يكتب تقريراً ورسالة رسمية</td><td>يكتب مقالة وبحثاً موثقاً</td></tr>
+    </tbody></table></div>
+  <div class="pno"></div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="k">بنية الدرس</div><h2>ستة أقسام ثابتة في كل درس</h2>
+  <div class="cols c3" style="margin-top:18px">
+    <div class="box"><span class="e">①</span><h3>المفردات والتراكيب</h3>مجموعات دلالية مصوّرة وتراكيب المحادثة.</div>
+    <div class="box"><span class="e">②</span><h3>النص أو الحوار</h3>موقف واقعي قابل للتمثيل.</div>
+    <div class="box"><span class="e">③</span><h3>تمارين الفهم</h3>صح/خطأ، اختيار، ترتيب، أجب.</div>
+    <div class="box"><span class="e">④</span><h3>القاعدة</h3>تُستخرج من النص، وتُطبَّق على آية أو حديث، مع ملاحظة تركية.</div>
+    <div class="box"><span class="e">⑤</span><h3>تمارين القاعدة</h3>استعمال لا حفظ: أكمل، صحّح، كوّن.</div>
+    <div class="box"><span class="e">⑥</span><h3>الأنشطة المهارية</h3>استماع، محادثة، قراءة، كتابة.</div>
+  </div>
+  <div class="pno"></div>
+</section>
+
+<!-- 9b: الشواهد -->
+<section class="slide">
+  <div class="k">القاعدة من نور الوحي</div><h2>هدفان في مثال واحد: القاعدة والأدب</h2>
+  <p class="sub">كل قاعدة تُطبَّق على آية أو حديث أو أثر من أقوال الصحابة والتابعين يعرفه الطالب.</p>
+  <div class="cols c3">
+    <div class="box" style="background:#fbf5e6"><div class="small" style="color:var(--gold);font-weight:700">قال تعالى</div><div style="font-family:Amiri,var(--f-book);font-size:1.7rem;line-height:1.9">﴿فِيهَا <span class="sh-m">كُتُبٌ</span> <span class="sh-s">قَيِّمَةٌ</span>﴾</div><div class="small muted">البيّنة: 3</div><div class="small">🔎 جمع غير العاقل يوصف بالمفرد المؤنث</div><div class="small" style="color:var(--ok)">🌱 اختر من الكتب أقومها</div></div>
+    <div class="box" style="background:#fbf5e6"><div class="small" style="color:var(--gold);font-weight:700">قال رسول الله ﷺ</div><div style="font-family:Amiri,var(--f-book);font-size:1.7rem;line-height:1.9">«<span class="sh-m">الكَلِمَةُ</span> <span class="sh-s">الطَّيِّبَةُ</span> صَدَقَةٌ»</div><div class="small muted">متفق عليه</div><div class="small">🔎 الصفة تطابق موصوفها تأنيثاً وتعريفاً</div><div class="small" style="color:var(--ok)">🌱 تحيّتك وشكرك صدقة</div></div>
+    <div class="box" style="background:#fbf5e6"><div class="small" style="color:var(--gold);font-weight:700">أثر من التابعين</div><div style="font-family:Amiri,var(--f-book);font-size:1.45rem;line-height:1.9">«إِنَّ هَٰذَا العِلْمَ دِينٌ، فَانْظُرُوا عَمَّنْ تَأْخُذُونَ دِينَكُمْ»</div><div class="small muted">ابن سيرين — مقدمة صحيح مسلم</div><div class="small" style="color:var(--ok)">🌱 اختر شيخك كما تختار كتابك</div></div>
+  </div>
+  <div class="box" style="margin-top:16px;text-align:center;font-size:1.1rem">التدرج: آيات وأحاديث قصيرة (A1) ← آداب وشمائل (A2) ← آثار الصحابة والتابعين ومواقف السيرة (B1) ← نصوص تراثية وتحليل بلاغي (B2) · <b>تُخرَّج كل الشواهد وتراجعها لجنة شرعية</b></div>
+  <div class="pno"></div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <div class="k">المهارات الأربع</div><h2>المحادثة أولاً… واستقلال يتزايد</h2>
+  <div class="bars" id="sSkills" style="margin-top:26px"></div>
+  <div style="display:flex;gap:24px;font-size:1.05rem;margin-top:6px"><span>■ <span style="color:#3a7ca5">استماع</span></span><span>■ <span style="color:#0f4c45">محادثة</span></span><span>■ <span style="color:#b48a3c">قراءة</span></span><span>■ <span style="color:#8a5a7a">كتابة</span></span></div>
+  <div class="pno"></div>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <div class="k" style="color:var(--bad)">الهوية المحافظة — ضوابط ملزمة</div><h2>شروط لا تفضيلات</h2>
+  <div class="cols c2" style="margin-top:14px">
+    <div class="box" style="border:2px solid var(--bad)"><h3 style="color:var(--bad)">⛔ خطوط حمراء</h3><ul class="rl"><li>لا صور ولا رسوم للنساء والفتيات، ولو في الخلفية</li><li>لا صور مختلطة</li><li>لا حوارات ولا مواقف بين الجنسين — نصاً وصوتاً وتمثيلاً</li><li>لا تصوير للحياة الجامعية المختلطة</li></ul></div>
+    <div class="box" style="border-inline-start:6px solid var(--ok)"><h3>✅ في المقابل</h3><ul class="rl"><li>شخصيات من الرجال والأولاد، وصور أماكن وأشياء</li><li>قواعد المؤنث كاملة بأمثلة نحوية مجردة</li><li>المسجد والحلقة والسكن والمكتبة أولاً</li><li>مراجعة إلزامية لكل وحدة بقائمة من 7 بنود، منها صحة الشواهد وتخريجها</li></ul></div>
+  </div>
+  <div class="pno"></div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <div class="k">خصوصية الطالب التركي</div><h2>صعوباته محسوبة في الترتيب والتمارين</h2>
+  <div class="cols c3" style="margin-top:14px">
+    <div class="box"><h3>🔊 الأصوات</h3>ع/ء · ح/هـ · ق/ك · ص/س · ط/ت · ذ/ز — تمرين ثنائيات صوتية في كل درس.</div>
+    <div class="box"><h3>🔀 ترتيب الجملة</h3>التركية: فاعل–مفعول–فعل، والصفة قبل الموصوف — تمارين «رتّب» و«صحّح».</div>
+    <div class="box"><h3>🔠 التذكير والتأنيث</h3>لا جنس في التركية — تقديم مبكر ومطابقة متكررة.</div>
+    <div class="box"><h3>🔤 الحركات</h3>تشكيل كامل في A1 يُخفف تدريجياً.</div>
+    <div class="box"><h3>🪞 الألفاظ المشتركة</h3>sohbet ، malum ، kitap — تنبيهات ووحدة كاملة في B2.</div>
+    <div class="box" style="background:#f1f6fb"><h3 class="lat" style="direction:ltr;text-align:left">Türkçe not</h3>ملاحظات تركية موجزة في مربع خاص — والعربية لغة الكتاب.</div>
+  </div>
+  <div class="pno"></div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <div class="k">الكتاب التفاعلي</div><h2>ليس ملف PDF… بل تجربة تعلم</h2>
+  <div class="cols c4" style="margin-top:14px">
+    <div class="box"><span class="e">👆</span><h3>اضغط الكلمة</h3>صورة ومعنى ونطق.</div>
+    <div class="box"><span class="e">🎧</span><h3>استمع وتابع</h3>الحوار مسموعاً مع تظليل الجملة.</div>
+    <div class="box"><span class="e">🃏</span><h3>بطاقات</h3>تنقلب وتُفرز للمراجعة.</div>
+    <div class="box"><span class="e">✅</span><h3>تمارين ذكية</h3>تصحيح فوري وإظهار الإجابة.</div>
+    <div class="box"><span class="e">🔀</span><h3>سحب وإفلات</h3>رتّب، طابق، كوّن جملة.</div>
+    <div class="box"><span class="e">🎙️</span><h3>سجّل صوتك</h3>وقارنه بالنطق الصحيح.</div>
+    <div class="box"><span class="e">🖥️</span><h3>وضع المعلم</h3>عرض على الشاشة، إظهار وإخفاء.</div>
+    <div class="box"><span class="e">📈</span><h3>متابعة التقدم</h3>للطالب والمعلم والإدارة.</div>
+  </div>
+  <div class="pno"></div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <div class="k">نموذج الوحدة والدرس</div><h2>A1 · الوحدة 7: في المكتبة</h2>
+  <div class="cols c2" style="margin-top:10px">
+    <div class="box">
+      <h3>الدروس الثلاثة</h3>
+      <ol class="rl" style="padding-inline-start:22px"><li><b>في مكتبة المعهد</b> — الصفة والموصوف</li><li><b>أريد أن أشتري كتاباً</b> — أريد أن + المضارع</li><li><b>كتابي المفضل</b> — الإضافة</li></ol>
+      <p class="small muted">+ مراجعة 20 مفردة و7 تراكيب في نهاية الوحدة</p>
+    </div>
+    <div class="box" style="background:#fffefb;border-inline-start:8px solid var(--a1)">
+      <div class="small muted">من الحوار</div>
+      <p class="book" style="font-size:1.3rem;margin:6px 0"><b style="color:var(--a1);font-family:var(--f-ui);font-size:.9rem">يوسف:</b> أُرِيدُ كِتَاباً سَهْلاً فِي النَّحْوِ. هَلْ عِنْدَكُمْ؟</p>
+      <p class="book" style="font-size:1.3rem;margin:6px 0"><b style="color:var(--gold);font-family:var(--f-ui);font-size:.9rem">أمين المكتبة:</b> نَعَمْ، عِنْدَنَا كِتَابٌ جَدِيدٌ وَمُفِيدٌ.</p>
+      <div class="trnote small" style="margin-top:10px">Türkçede sıfat önce gelir: <i>yeni kitap</i>. Arapçada sonra gelir ve uyar: <span lang="ar">كتابٌ جديدٌ — مجلةٌ جديدةٌ</span></div>
+    </div>
+  </div>
+  <p style="font-size:1.05rem;margin-top:14px">🔗 الدرس كاملاً وتفاعلياً في الموقع التعريفي: <b>lesson.html</b></p>
+  <div class="pno"></div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <div class="k">القيمة المضافة</div><h2>لماذا نستثمر في هذه السلسلة؟</h2>
+  <div class="cols c2" style="margin-top:14px">
+    <div class="box"><ul class="rl"><li>✓ أول سلسلة تواصلية مصممة لطالب العلم التركي</li><li>✓ تسد فجوة «يفهم ولا يتكلم»</li><li>✓ هوية محافظة موثقة بضوابط ومراجعة</li><li>✓ تميّز مؤسسي ومنتج قابل للنشر والتعميم</li></ul></div>
+    <div class="box" style="background:var(--gold-soft)"><h3>المخرجات</h3><ul class="rl"><li>4 كتب للطالب (40 وحدة / 120 درساً)</li><li>4 أدلة للمعلم + كراسات تمارين</li><li>تسجيلات صوتية بشرية</li><li>كتاب تفاعلي وموقع، ثم تطبيق</li></ul></div>
+  </div>
+  <div class="pno"></div>
+</section>
+
+<!-- 16 -->
+<section class="slide dark pattern">
+  <div class="k" style="color:var(--gold-soft)">مراحل التنفيذ</div><h2>من الاعتماد إلى المنصة</h2>
+  <div class="flowrow" style="margin-top:20px;color:var(--ink)">
+    <div class="box"><b>1</b>اعتماد الاسم والهيكل والوحدات</div>
+    <div class="box"><b>2</b>فريق التأليف والمراجعة الشرعية واللغوية</div>
+    <div class="box"><b>3</b>دليل الأسلوب والقوائم المعجمية</div>
+    <div class="box"><b>4</b>تأليف A1 وتجريبه على الطلاب</div>
+    <div class="box"><b>5</b>المستويات A2–B2</div>
+    <div class="box"><b>6</b>الكتاب التفاعلي والموقع والتطبيق</div>
+  </div>
+  <div class="box" style="margin-top:34px;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);color:#fff;font-size:1.35rem;text-align:center">
+    <b style="color:var(--gold-soft)">المطلوب من الإدارة اليوم:</b> اعتماد الفكرة والهيكل العام وتوزيع الوحدات، والإذن بالبدء في تأليف المستوى الأول.</div>
+  <div class="pno" style="color:rgba(255,255,255,.5)"></div>
+</section>
+
+</div></div>
+<div class="nav-ui"><button id="prev">→ السابق</button><button id="fs">⛶ ملء الشاشة</button><button id="printBtn" onclick="window.print()">🖨 PDF</button><a href="index.html" style="text-decoration:none"><button>الموقع</button></a><button id="next">التالي ←</button></div>
+
+<script src="data/curriculum.js"></script>
+<script>
+document.getElementById('sLevels').innerHTML = LEVELS.map(L => '<div class="lvlbox" style="background:' + L.color + '"><b class="code">' + L.code + '</b><div style="font-family:var(--f-display);font-size:1.5rem">' + L.name + '</div><div style="opacity:.85;margin-bottom:10px">«' + L.motto + '»</div><div style="font-size:.98rem;line-height:1.7">' + L.goal + '</div><div style="margin-top:12px;font-size:.9rem;opacity:.9">' + L.vocab + ' مفردة · ' + L.textLen + '</div></div>').join('');
+document.getElementById('sGrid').innerHTML = LEVELS.map(L => '<div style="display:flex;gap:12px;align-items:center"><b class="lat" style="width:44px;color:' + L.color + ';font-size:1.4rem">' + L.code + '</b><div class="mini-grid" style="flex:1">' + L.units.map(u => '<div style="background:' + L.color + '" title="' + u.title + '">' + u.n + '<div style="font-family:var(--f-ui);font-size:.72rem;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 3px">' + u.title + '</div></div>').join('') + '</div></div>').join('');
+document.getElementById('sSkills').innerHTML = LEVELS.map(L => { const s = L.skills; return '<div><b class="lat" style="width:44px;color:' + L.color + ';font-size:1.4rem">' + L.code + '</b><div class="skillbar"><span class="sk-l" style="width:' + s.listening + '%">استماع ' + s.listening + '%</span><span class="sk-s" style="width:' + s.speaking + '%">محادثة ' + s.speaking + '%</span><span class="sk-r" style="width:' + s.reading + '%">قراءة ' + s.reading + '%</span><span class="sk-w" style="width:' + s.writing + '%">كتابة ' + s.writing + '%</span></div><span style="width:260px;font-size:.95rem;color:var(--ink-2)">' + L.independence.split(':')[0] + '</span></div>'; }).join('');
+
+// شريحة لكل مستوى: الوحدات العشر ودروسها الثلاثة، بعد شريحة الهيكل العام
+(function () {
+  const anchor = document.getElementById('sGrid').closest('.slide');
+  LEVELS.slice().reverse().forEach(L => {
+    const sec = document.createElement('section');
+    sec.className = 'slide uslide';
+    sec.innerHTML = '<div class="k" style="color:' + L.color + '">المستوى ' + L.code + ' — ' + L.name + ' «' + L.motto + '»</div><h2>الوحدات العشر ودروسها الثلاثون</h2>' +
+      '<div class="ugrid">' + L.units.map(u => '<div class="ucard' + (u.sample ? ' sample' : '') + '"><span class="ubadge" style="background:' + L.color + '">الوحدة ' + u.n + '</span>' + (u.sample ? '<span class="usample">نموذجية</span>' : '') +
+        '<b>' + u.title + '</b><ol>' + u.lessons.map(l => '<li>' + l.t + '</li>').join('') + '</ol></div>').join('') + '</div><div class="pno"></div>';
+    anchor.after(sec);
+  });
+})();
+const slides = [...document.querySelectorAll('.slide')];
+slides.forEach((s, i) => { const p = s.querySelector('.pno'); if (p) p.textContent = (i + 1) + ' / ' + slides.length; });
+let cur = Math.min(slides.length - 1, Math.max(0, (parseInt(location.hash.slice(1)) || 1) - 1));
+function show(i) {
+  cur = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((s, j) => s.classList.toggle('on', j === cur));
+  document.getElementById('bar').style.width = ((cur + 1) / slides.length * 100) + '%';
+  history.replaceState(null, '', '#' + (cur + 1));
+}
+// على الهاتف العمودي (أو الشاشات الضيقة جداً) تُعرض الشرائح متتالية بحجم مقروء بدل تصغيرها
+const isStack = () => innerWidth < 560 || (innerWidth < 900 && innerHeight > innerWidth);
+function fit() {
+  const stack = isStack();
+  document.body.classList.toggle('stack', stack); document.documentElement.classList.toggle('stack', stack);
+  if (stack) return;
+  const s = Math.min(innerWidth / 1280, innerHeight / 720);
+  document.getElementById('stage').style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+}
+addEventListener('resize', fit); fit(); show(cur);
+document.getElementById('next').onclick = () => show(cur + 1);
+document.getElementById('prev').onclick = () => show(cur - 1);
+document.getElementById('fs').onclick = () => { try { const p = document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); if (p && p.catch) p.catch(() => {}); } catch (e) {} };
+// داخل إطار العرض المستضاف لا تعمل الطباعة، فنخفي زر PDF هناك
+if (window.self !== window.top) document.getElementById('printBtn').style.display = 'none';
+addEventListener('keydown', e => {
+  if (isStack()) return;
+  if (['ArrowLeft', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); show(cur + 1); }
+  if (['ArrowRight', 'PageUp'].includes(e.key)) show(cur - 1);
+  if (e.key === 'Home') show(0); if (e.key === 'End') show(slides.length - 1);
+});
+document.querySelector('.viewport').addEventListener('click', e => { if (isStack() || e.target.closest('a,button,.table-wrap')) return; show(cur + (e.clientX < innerWidth / 2 ? 1 : -1)); });
+// اللمس: سحب أفقي للتنقل بين الشرائح في الوضع الأفقي
+let tx = null;
+addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+addEventListener('touchend', e => { if (tx === null || isStack()) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) show(cur + (dx > 0 ? 1 : -1)); tx = null; }, { passive: true });
+</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التجربة التفاعلية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=IBM+Plex+Sans:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .pop { position: absolute; z-index: 60; width: 240px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 14px; text-align: center; display: none; }
+  .pop.open { display: block; }
+  .pop .ico { font-size: 3rem; line-height: 1.2; }
+  .pop .ar { font-family: var(--f-book); font-size: 1.6rem; }
+  .tapword { cursor: pointer; border-bottom: 2px dotted var(--lvl); }
+  .tapword:hover { background: color-mix(in srgb, var(--lvl) 10%, transparent); }
+  .lab h2 { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .bank { display: flex; flex-wrap: wrap; gap: 8px; min-height: 54px; padding: 10px; border: 2px dashed var(--line); border-radius: 12px; }
+  .bank.target { border-color: var(--lvl); background: color-mix(in srgb, var(--lvl) 4%, white); }
+  .chipw { font-family: var(--f-book); font-size: 1.25rem; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 4px 14px; cursor: pointer; }
+  .fc-actions { display: flex; gap: 8px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+</style>
+</head>
+<body style="--lvl:var(--a1)">
+<header id="topbar"></header>
+<section class="page-hero pattern">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">الرئيسية</a> / التجربة التفاعلية</div>
+    <h1>كيف سيبدو الكتاب التفاعلي؟</h1>
+    <p>نماذج تعمل فعلياً في المتصفح لتوضيح الرؤية الرقمية للسلسلة. هي نماذج تعريفية لا منصة مكتملة: النطق آلي تجريبي، والتقدم يُحفظ في هذا الجهاز فقط، وبيانات الفصل في لوحة المعلم توضيحية.</p>
+  </div>
+</section>
+
+<section class="block lab" style="padding-top:40px">
+  <div class="wrap">
+    <h2>① اضغط على الكلمة <span class="tag-demo">يعمل</span></h2>
+    <p class="muted">عندما يدرس الطالب كلمة، يضغط عليها فيرى صورتها ومعناها ويسمع نطقها.</p>
+    <div class="reading-text" id="tapText" style="position:relative"></div>
+    <div class="pop" id="pop"></div>
+  </div>
+</section>
+
+<section class="block alt lab" id="flash">
+  <div class="wrap">
+    <h2>② بطاقات المفردات <span class="tag-demo">يعمل</span></h2>
+    <p class="muted">البطاقة تنقلب عند الضغط. يفرز الطالب ما حفظه وما يحتاج إلى مراجعة، وتعود البطاقات الصعبة أولاً (مبدأ التكرار المتباعد).</p>
+    <div class="flip-grid" id="flipGrid"></div>
+    <div class="fc-actions">
+      <span class="chip" id="fcStats"></span>
+      <button class="btn ghost sm" id="fcShuffle">خلط البطاقات</button>
+      <button class="btn ghost sm" id="fcHard">اعرض الصعبة فقط</button>
+      <button class="btn ghost sm" id="fcAll">اعرض الكل</button>
+    </div>
+  </div>
+</section>
+
+<section class="block lab">
+  <div class="wrap">
+    <div class="grid g2" style="align-items:start">
+      <div>
+        <h2>③ طابق الصورة بالكلمة <span class="tag-demo">يعمل</span></h2>
+        <p class="muted">اختر صورة ثم الكلمة المناسبة لها.</p>
+        <div class="match"><div class="match-col" id="mPics"></div><div class="match-col" id="mWords"></div></div>
+        <p class="fb" id="mFb"></p>
+        <button class="btn ghost sm" id="mReset">إعادة</button>
+      </div>
+      <div>
+        <h2>④ رتّب الكلمات لتكوّن جملة <span class="tag-demo">يعمل</span></h2>
+        <p class="muted">اضغط على الكلمات بالترتيب الصحيح (تدريب على ترتيب الجملة العربية).</p>
+        <div id="buildPrompt" class="small muted" style="margin-bottom:6px"></div>
+        <div class="bank target" id="bTarget"></div>
+        <div class="bank" id="bSource" style="margin-top:10px"></div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="bCheck">تحقق</button><button class="btn ghost sm" id="bAns">أظهر الإجابة</button><button class="btn ghost sm" id="bNext">جملة أخرى</button></div>
+        <p class="fb" id="bFb"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt lab" id="teacher">
+  <div class="wrap">
+    <h2>⑤ وضع المعلم: التمرين على الشاشة <span class="tag-demo">يعمل</span></h2>
+    <div class="grid g2" style="align-items:center">
+      <div>
+        <p>يعرض المعلم التمرين على شاشة الفصل بخط كبير، ويقرأ الطلاب ويجيبون، ثم:</p>
+        <ul class="check">
+          <li>يُظهر الإجابة الصحيحة أو يخفيها (زر أو مفتاح المسافة).</li>
+          <li>يضغط على خيار الطلاب فيظهر صوابه أو خطؤه أمام الجميع.</li>
+          <li>يشغّل النطق ومؤقتاً مدته 30 ثانية للتفكير.</li>
+          <li>يتنقل بين الأسئلة بالأسهم.</li>
+        </ul>
+        <button class="btn gold" id="openTeacher">🖥️ جرّب وضع المعلم</button>
+      </div>
+      <div class="card" style="background:#0d1f1d;color:#fff;text-align:center">
+        <div class="small" style="opacity:.6">معاينة</div>
+        <div class="book" style="font-size:1.8rem;margin:10px 0">هٰذِهِ مَكْتَبَةٌ ____.</div>
+        <div style="display:flex;gap:10px;justify-content:center"><span class="book" style="border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:4px 20px;font-size:1.3rem">كَبِيرٌ</span><span class="book" style="background:var(--ok);border-radius:12px;padding:4px 20px;font-size:1.3rem">كَبِيرَةٌ</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block lab" id="progress">
+  <div class="wrap">
+    <h2>⑥ متابعة التعلم</h2>
+    <div class="grid g2" style="align-items:start">
+      <div class="card">
+        <h3>لوحة الطالب <span class="tag-demo">من تقدمك الفعلي في الدرس النموذجي</span></h3>
+        <div class="dash" id="studentDash"></div>
+        <p class="small muted" style="margin-top:12px">تُقرأ البيانات من أنشطتك في <a href="lesson.html">صفحة الدرس النموذجي</a> والبطاقات أعلاه، وتُحفظ في متصفحك فقط.</p>
+      </div>
+      <div class="card">
+        <h3>لوحة المعلم <span class="tag-demo">بيانات توضيحية</span></h3>
+        <p class="small muted">تصور مستقبلي: يرى المعلم إنجاز طلاب الفصل ونقاط الضعف المشتركة.</p>
+        <div class="table-wrap"><table class="t student-table small" id="classTable"></table></div>
+        <p class="small" style="margin-top:10px">⚠️ <b>نقطة ضعف مشتركة:</b> مطابقة الصفة في التأنيث (62% إجابات صحيحة) — يُقترح تمرين إضافي.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer"></footer>
+<script src="data/sample-unit.js"></script>
+<script src="audio/manifest.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/teacher.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const L = SAMPLE_UNIT.lesson1;
+const lex = {};
+L.vocabGroups.forEach(g => g.items.forEach(w => { lex[normAr(w.ar.split(' / ')[0])] = w; }));
+
+/* ① النص القابل للنقر */
+const txt = L.reading.text;
+const tapForms = { 'مكتبه': 'مَكْتَبَةٌ', 'رفوف': 'رَفٌّ', 'كتب': 'كِتَابٌ', 'قاعه': 'قَاعَةُ المُطَالَعَةِ', 'كتابا': 'كِتَابٌ', 'يقرا': 'يَقْرَأُ', 'اقرا': 'يَقْرَأُ', 'استعير': 'يَسْتَعِيرُ', 'كبيره': 'كَبِيرٌ / كَبِيرَةٌ', 'مفيده': 'مُفِيدٌ / مُفِيدَةٌ', 'جديدا': 'جَدِيدٌ / جَدِيدَةٌ' };
+$('tapText').innerHTML = txt.split(' ').map(w => {
+  const k = normAr(w.replace(/[.،]/g, '')).replace(/^(و|ف)(?=..)/, '');
+  const key = Object.keys(tapForms).find(f => normAr(f) === k);
+  return key ? '<span class="tapword" data-key="' + esc(tapForms[key]) + '">' + w + '</span>' : w;
+}).join(' ');
+const allWords = L.vocabGroups.flatMap(g => g.items);
+$('tapText').addEventListener('click', e => {
+  const s = e.target.closest('.tapword'); if (!s) return;
+  const w = allWords.find(x => x.ar === s.dataset.key); if (!w) return;
+  const pop = $('pop'), r = s.getBoundingClientRect(), pr = $('tapText').parentNode.getBoundingClientRect();
+  pop.innerHTML = '<div class="ico">' + w.ic + '</div><div class="ar">' + w.ar + '</div>' + (w.pl ? '<div class="small muted book">ج: ' + w.pl + '</div>' : '') +
+    '<div class="lat" style="color:#1f5f9e">' + w.tr + '</div><div style="margin-top:8px">' + sayBtn(w.ar.split(' / ')[0], '▶') + ' <span class="small muted">استمع</span></div>';
+  pop.style.top = (r.bottom - pr.top + 8) + 'px';
+  pop.style.left = Math.max(0, Math.min(pr.width - 240, r.left - pr.left + r.width / 2 - 120)) + 'px';
+  pop.classList.add('open'); speak(w.ar.split(' / ')[0]);
+});
+document.addEventListener('click', e => { if (!e.target.closest('.tapword') && !e.target.closest('.pop')) $('pop').classList.remove('open'); });
+$('tapText').parentNode.style.position = 'relative';
+
+/* ② البطاقات */
+const words = SAMPLE_UNIT.review.words;
+let known = store.get('fc-known', {}), onlyHard = false, order = words.map((_, i) => i);
+function renderCards() {
+  const list = order.filter(i => !onlyHard || !known[i]).sort((a, b) => (known[a] ? 1 : 0) - (known[b] ? 1 : 0));
+  $('flipGrid').innerHTML = list.map(i => { const w = words[i];
+    return '<div><button class="flip" data-i="' + i + '"><div class="flip-in"><div class="flip-face flip-front"><div class="ico">' + w[2] + '</div><div class="ar">' + w[0] + '</div>' + (known[i] ? '<div class="small" style="color:var(--ok)">✓ محفوظة</div>' : '') + '</div>' +
+      '<div class="flip-face flip-back"><div class="tr">' + w[1] + '</div><div class="ar">' + w[0] + '</div></div></div></button>' +
+      '<div style="display:flex;gap:4px;justify-content:center;margin-top:6px">' + sayBtn(w[0]) + '<button class="btn sm" style="padding:3px 10px;background:var(--ok)" data-know="' + i + '">أعرفها</button><button class="btn ghost sm" style="padding:3px 10px" data-unknow="' + i + '">أراجعها</button></div></div>'; }).join('');
+  const k = Object.values(known).filter(Boolean).length;
+  $('fcStats').textContent = 'محفوظة: ' + k + ' / ' + words.length;
+}
+$('flipGrid').addEventListener('click', e => {
+  const f = e.target.closest('.flip'); if (f) f.classList.toggle('on');
+  const k = e.target.closest('[data-know]'); if (k) { known[k.dataset.know] = true; store.set('fc-known', known); renderCards(); }
+  const u = e.target.closest('[data-unknow]'); if (u) { known[u.dataset.unknow] = false; store.set('fc-known', known); renderCards(); }
+});
+$('fcShuffle').onclick = () => { order = shuffle(order); renderCards(); };
+$('fcHard').onclick = () => { onlyHard = true; renderCards(); };
+$('fcAll').onclick = () => { onlyHard = false; renderCards(); };
+renderCards();
+
+/* ③ المطابقة */
+const mItems = allWords.slice(0, 12).filter((_, i) => [0, 4, 6, 7, 8, 9].includes(i));
+let sel = null, matched = 0;
+function renderMatch() {
+  matched = 0; sel = null; $('mFb').textContent = '';
+  $('mPics').innerHTML = shuffle(mItems).map(w => '<button class="mitem pic" data-k="' + esc(w.ar) + '">' + w.ic + '</button>').join('');
+  $('mWords').innerHTML = shuffle(mItems).map(w => '<button class="mitem word" data-k="' + esc(w.ar) + '">' + w.ar + '</button>').join('');
+}
+document.querySelector('.match').addEventListener('click', e => {
+  const b = e.target.closest('.mitem'); if (!b || b.classList.contains('done')) return;
+  if (b.classList.contains('pic')) { document.querySelectorAll('.mitem.pic').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); sel = b; return; }
+  if (!sel) { $('mFb').className = 'fb no'; $('mFb').textContent = 'اختر صورة أولاً'; return; }
+  if (sel.dataset.k === b.dataset.k) {
+    sel.classList.replace('sel', 'done'); b.classList.add('done'); speak(b.dataset.k); sel = null; matched++;
+    $('mFb').className = 'fb ok'; $('mFb').textContent = matched === mItems.length ? '✓ أحسنت! أكملت المطابقة.' : '✓ صحيح';
+    if (matched === mItems.length) { const p = store.get('lab', {}); p.match = true; store.set('lab', p); renderDash(); }
+  } else { b.classList.add('shake'); setTimeout(() => b.classList.remove('shake'), 400); $('mFb').className = 'fb no'; $('mFb').textContent = '✗ ليست هذه'; }
+});
+$('mReset').onclick = renderMatch; renderMatch();
+
+/* ④ بناء الجملة */
+const sentences = [
+  { tr: 'Kütüphane büyüktür.', w: ['المَكْتَبَةُ', 'كَبِيرَةٌ'] },
+  { tr: 'Yeni bir kitap istiyorum.', w: ['أُرِيدُ', 'كِتَاباً', 'جَدِيداً'] },
+  { tr: 'Okuma salonu rafların yanındadır.', w: ['قَاعَةُ', 'المُطَالَعَةِ', 'بِجَانِبِ', 'الرُّفُوفِ'] },
+  { tr: 'Kitabı perşembe günü iade ediyorum.', w: ['أُرْجِعُ', 'الكِتَابَ', 'يَوْمَ', 'الخَمِيسِ'] }
+];
+let si = 0;
+function renderBuild() {
+  const s = sentences[si];
+  $('buildPrompt').innerHTML = '<span class="lat">🇹🇷 ' + s.tr + '</span>';
+  $('bTarget').innerHTML = ''; $('bFb').textContent = '';
+  $('bAns').classList.remove('on'); $('bAns').textContent = 'أظهر الإجابة';
+  $('bSource').innerHTML = shuffle(s.w).map(w => '<button class="chipw">' + w + '</button>').join('');
+}
+$('bSource').onclick = e => { const c = e.target.closest('.chipw'); if (c) $('bTarget').appendChild(c); };
+$('bTarget').onclick = e => { const c = e.target.closest('.chipw'); if (c) $('bSource').appendChild(c); };
+$('bCheck').onclick = () => {
+  const got = [...$('bTarget').children].map(c => c.textContent).join(' '), want = sentences[si].w.join(' ');
+  const ok = got === want; $('bFb').className = 'fb ' + (ok ? 'ok' : 'no');
+  $('bFb').innerHTML = ok ? '✓ صحيح! ' + sayBtn(want) : '✗ ليس بعد. تذكّر: الصفة بعد الموصوف، والفعل غالباً في أول الجملة.';
+  if (ok) { speak(want); const p = store.get('lab', {}); p.build = (p.build || 0) + 1; store.set('lab', p); renderDash(); }
+};
+$('bAns').onclick = function () {
+  const showing = this.classList.toggle('on');
+  this.textContent = showing ? '↺ إخفاء الإجابة' : 'أظهر الإجابة';
+  $('bFb').className = 'fb ok'; $('bFb').textContent = showing ? sentences[si].w.join(' ') : '';
+};
+$('bNext').onclick = () => { si = (si + 1) % sentences.length; renderBuild(); };
+renderBuild();
+
+/* ⑤ وضع المعلم */
+$('openTeacher').onclick = () => Teacher.open('تدريبات القاعدة — الصفة والموصوف', L.grammarChoice.concat(L.mcq));
+
+/* ⑥ لوحات المتابعة */
+function renderDash() {
+  const d = store.get('lesson-u7-1', {}), total = 15, n = Object.values(d).filter(Boolean).length;
+  const k = Object.values(store.get('fc-known', {})).filter(Boolean).length, lab = store.get('lab', {});
+  const ring = (p, label, sub) => '<div style="text-align:center"><div class="ring" style="--p:' + p + '"><b>' + p + '%</b></div><b>' + label + '</b><div class="small muted">' + sub + '</div></div>';
+  $('studentDash').innerHTML = ring(Math.round(n / total * 100), 'الدرس النموذجي', n + ' / ' + total + ' نشاطاً') +
+    ring(Math.round(k / words.length * 100), 'مفردات الوحدة', k + ' / ' + words.length + ' كلمة') +
+    ring((lab.match ? 50 : 0) + (lab.build ? 50 : 0), 'أنشطة إضافية', (lab.match ? 'المطابقة ✓ ' : '') + (lab.build ? 'الجمل ✓' : '—'));
+}
+renderDash();
+const cls = [['عبد الله', 100, 92], ['يوسف', 87, 85], ['محمد', 80, 70], ['عمر', 73, 64], ['أحمد', 60, 78], ['إبراهيم', 40, 55]];
+$('classTable').innerHTML = '<thead><tr><th>الطالب</th><th>إنجاز الدرس</th><th>الدقة</th></tr></thead><tbody>' +
+  cls.map(c => '<tr><td>' + c[0] + '</td><td><div class="bar"><i style="width:' + c[1] + '%"></i></div><span class="small lat">' + c[1] + '%</span></td><td class="lat">' + c[2] + '%</td></tr>').join('') + '</tbody>';
+</script>
+</body>
+</html>

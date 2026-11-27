@@ -1,0 +1,65 @@
+{
+ "shelf": {
+  "title": "Bookshelf Prunksaal OeNB Vienna AT matl00786ch",
+  "creator": "Matl",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Bookshelf_Prunksaal_OeNB_Vienna_AT_matl00786ch.jpg",
+  "file": "shelf.jpg"
+ },
+ "book": {
+  "title": "Free old closed book wooden",
+  "creator": "Unknown",
+  "license": "CC0 1.0",
+  "source": "https://www.rawpixel.com/image/5919820/photo-image-book-public-domain-wooden",
+  "file": "book.jpg"
+ },
+ "mushaf": {
+  "title": "Qur'an and Rehal",
+  "creator": "sayyed shahab-o- din vajedi",
+  "license": "CC BY 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Qur%27an_and_Rehal.jpg",
+  "file": "mushaf.jpg"
+ },
+ "dictionary": {
+  "title": "Auerbach open",
+  "creator": "LA2",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Auerbach_open.jpg",
+  "file": "dictionary.jpg"
+ },
+ "notebook": {
+  "title": "Spiral-bound notebooks",
+  "creator": "Mk2010",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Spiral-bound_notebooks.JPG",
+  "file": "notebook.jpg"
+ },
+ "pen": {
+  "title": "Parker Vector Stainless Steel Ballpoint Pen",
+  "creator": "Kevin Brown",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Parker_Vector_Stainless_Steel_Ballpoint_Pen.jpg",
+  "file": "pen.jpg"
+ },
+ "computer": {
+  "title": "Laptop der Marke exone go 20240203 HOF06886 RAW-Export 000276",
+  "creator": "PantheraLeo1359531",
+  "license": "CC BY 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Laptop_der_Marke_exone_go_20240203_HOF06886_RAW-Export_000276.png",
+  "file": "computer.jpg"
+ },
+ "read": {
+  "title": "Young man reading the Quran",
+  "creator": "Hesna cherifa",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Young_man_reading_the_Quran.jpg",
+  "file": "read.jpg"
+ },
+ "search": {
+  "title": "Magnfying glass book globe",
+  "creator": "João Silas",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Magnfying_glass_book_globe.jpg",
+  "file": "search.jpg"
+ }
+}
